@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sympy import Matrix, cos, sin, Symbol, trigsimp, pi, preview
+from sympy import Matrix, cos, sin, Symbol, trigsimp, pi, preview, eye
 from sympy.interactive import printing
 
 
@@ -26,11 +26,7 @@ class DHParameters():
 
 class HomogeneousMatrix():
     def __init__(self):
-        self.A = Matrix([
-            [1,0,0,0],
-            [0,1,0,0],
-            [0,0,1,0],
-            [0,0,0,1]])
+        self.A = eye(4)
     
     def __mul__(self, other):
         return self.A * other.A
@@ -49,6 +45,14 @@ class HomogeneousMatrix():
     
     def simplify(self):
         self.A = trigsimp(self.A)
+    
+    def position(self):
+        print("\nPosition Matrix:")
+        print(self.A[0:3,3])
+    
+    def orientation(self):
+        print("\nOrientation Matrix:")
+        print(self.A[0:3,0:3])
 
 def main():
     DH_param_1 = DHParameters(
